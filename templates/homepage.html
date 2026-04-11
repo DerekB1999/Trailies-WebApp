@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} Trailies - Homepage {% endblock %}
+
+{% block content %}
+
+<div class="homepage">
+  <a href="/signout" class="signout-button">Logout</a>
+
+  <div class="profile-info">
+    <p>Trailies</p>
+    <p>Logged in as: {{user.first_name}} {{user.last_name}}</p>
+  </div>
+
+  <div class="trails-filter">
+    <p>Filters:</p>
+    <label for="trail-difficulty-filter">Difficulty:</label>
+    <select for="trail-difficulty-filter" hx-get="/trails/difficulty" hx-trigger="change" hx-target="#trails-list" 
+    hx-swap="innerHTML" name="difficulty" class="difficulty-button">
+      <option value="">ALL</option>
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+  </div>
+
+  {% if user.role == 'admin' %}
+    <a href="/trails/new" class="add-trail-button">Add Trail</a>
+  {% endif %}
+
+  <div class="homepage-trails-view">
+    <p>Trails:</p>
+    <div id="trails-list" hx-get="/trails" hx-trigger="load" hx-target="#trails-list" hx-swap="innerHTML"></div>
+  </div>
+</div>
+
+{% endblock %}

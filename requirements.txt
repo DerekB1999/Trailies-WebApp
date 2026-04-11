@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+sqlmodel
+psycopg2-binary
+python-jose[cryptography]
+passlib[bcrypt]==1.7.4
+bcrypt==4.1.2
+python-multipart
+jinja2==3.1.4
+httpie
+
+#Use pip install -r requirements.txt - This will install all of these
+#We use bcrypt 4.1.2 because bcrypt 4.2.0+ breaks passlib on Python 3.12+
+#bcrypt 4.1.2 works good with passlib and CryptContext

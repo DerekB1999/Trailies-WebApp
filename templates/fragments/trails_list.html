@@ -1,0 +1,28 @@
+<ul class="trails-items">
+  {% for trail in trails %}
+    <li class="each-trail">
+      <a href="/trails/{{trail.trail_id}}" class="trail-card-link">{{trail.name}}</a>
+      <button class="directions-button" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination={{trail.lat}},{{trail.lon}}', '_blank')" type="button">Directions</button>
+      <p>Difficulty: 
+        {% if trail.difficulty == 'easy' %}
+          Easy
+        {% elif trail.difficulty == 'medium' %}
+          Medium
+        {% elif trail.difficulty == 'hard' %}
+          Hard
+        {% endif %}
+      </p>
+      <p>Surface: {{trail.surface}}</p>
+      <p>Distance: {{trail.distance}} Miles</p>
+      <p><span>Rating:</span> {% if avg_ratings[trail.trail_id] %} {{avg_ratings[trail.trail_id]}} / 5 {% else %} No reviews yet {% endif %}</p>
+      <p>Dog-Friendly: {% if trail.dog_friendly %} Yes {% else %} No {% endif %}</p>
+      <p>Bike-Accessible: {% if trail.bike_friendly %} Yes {% else %} No {% endif %}</p>
+      {% if user.role == 'admin' %}
+      <button class="delete-button" hx-delete="/trails/{{ trail.trail_id}}/delete" hx-target="closest li" 
+      hx-swap="outerHTML" hx-confirm="Delete this trail?">
+        Delete Trail
+      </button>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

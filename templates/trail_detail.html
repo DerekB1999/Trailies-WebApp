@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %} {{trail.name}} - Details {% endblock %}
+
+{% block content %}
+
+<div class="detail-page">
+
+  <div class="profile-info">
+    <a href="/homepage" class="home-link">Trailies</a>
+    <p>Logged in as: {{user.first_name}} {{user.last_name}}</p>
+  </div>
+
+  <div class="trail-details">
+    <div class="trail-details-header">
+      <h2 class="trail-details-name">{{trail.name}}</h2>
+      <a href="https://www.google.com/maps/dir/?api=1&destination={{trail.lat}},{{trail.lon}}"
+        target="_blank" class="directions-link-detail">Directions</a>
+    </div>
+
+    <div class="trail-details-meta">
+      <p><span>Difficulty:</span>
+        {% if trail.difficulty == 'easy' %} Easy
+        {% elif trail.difficulty == 'medium' %} Medium
+        {% elif trail.difficulty == 'hard' %} Hard
+        {% endif %}
+      </p>
+      <p><span>Surface:</span> {{trail.surface}}</p>
+      <p><span>Distance:</span> {{trail.distance}} Miles</p>
+      <p><span>Rating:</span> {% if avg_rating %} {{avg_rating}} / 5 {% else %} No reviews yet {% endif %}</p>
+      <p><span>Dog-Friendly:</span> {% if trail.dog_friendly %} Yes {% else %} No {% endif %}</p>
+      <p><span>Bike-Accessible:</span> {% if trail.bike_friendly %} Yes {% else %} No {% endif %}</p>
+      {% if trail.description %}
+      <p><span>Description:</span> {{trail.description}}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="reviews-section">
+    <h3 class="reviews-title">Reviews</h3>
+
+    <div id="reviews-list" hx-get="/trails/{{trail.trail_id}}/reviews" hx-trigger="load"
+      hx-target="#reviews-list" hx-swap="innerHTML"></div>
+
+    <form hx-post="/trails/{{trail.trail_id}}/reviews" hx-target="#reviews-list"
+      hx-swap="beforeend" class="review-form">
+      <div class="form-group">
+        <label>Rating</label>
+        <div class="star-rating">
+          <input type="radio" id="star5" name="rating" value="5" required>
+          <label for="star5">★</label>
+          <input type="radio" id="star4" name="rating" value="4">
+          <label for="star4">★</label>
+          <input type="radio" id="star3" name="rating" value="3">
+          <label for="star3">★</label>
+          <input type="radio" id="star2" name="rating" value="2">
+          <label for="star2">★</label>
+          <input type="radio" id="star1" name="rating" value="1">
+          <label for="star1">★</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea id="comment" name="comment" placeholder="Leave a comment (optional)"></textarea>
+      </div>
+      <button type="submit" class="submit-button">Post Review</button>
+    </form>
+  </div>
+
+</div>
+
+{% endblock %}

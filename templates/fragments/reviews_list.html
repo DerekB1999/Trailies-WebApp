@@ -1,0 +1,10 @@
+<ul>
+  {% for review in reviews%}
+  <li>
+    Posted by: {{reviewers[review.user_id].first_name}} {{reviewers[review.user_id].last_name}}<br>
+    <p>Rating: {{review.rating}}</p>
+    <p>Comment: {{review.comment}}</p>
+    <p>Posted: {{review.created_at.strftime('%B %d, %Y')}}</p>
+  </li>
+  {% endfor %}
+</ul>

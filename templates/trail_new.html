@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %} Trailies - Add New Trail {% endblock %}
+
+{% block content %}
+
+<div class="new-trail-screen">
+
+  <div class="new-trail-header">
+    <a href="/homepage" class="home-link">Trailies</a>
+    <h1 class="new-trail-title">Add a New Trail</h1>
+  </div>
+
+  <form hx-post="/trails/new" hx-target="#new-trail-result" hx-swap="innerHTML" class="auth-form">
+
+    <div class="form-group">
+      <label for="trail_name">Trail Name</label>
+      <input type="text" id="trail_name" name="name" placeholder="Enter Trail Name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="trail_distance">Trail Distance (Miles)</label>
+      <input type="number" id="trail_distance" name="distance" placeholder="Enter Miles" step="any" required>
+    </div>
+
+    <div class="form-group">
+      <label for="trail_lat">Latitude</label>
+      <input type="number" id="trail_lat" name="lat" placeholder="Enter Latitude" step="any" required>
+    </div>
+
+    <div class="form-group">
+      <label for="trail_lon">Longitude</label>
+      <input type="number" id="trail_lon" name="lon" placeholder="Enter Longitude" step="any" required>
+    </div>
+
+    <div class="form-group">
+      <label for="trail_alt">Altitude (Optional)</label>
+      <input type="number" id="trail_alt" name="alt" placeholder="Enter Altitude" step="any">
+    </div>
+
+    <div class="form-group">
+      <label for="trail_surface">Surface</label>
+      <input type="text" id="trail_surface" name="surface" placeholder="Enter Surface Type" required>
+    </div>
+
+    <div class="form-group">
+      <label>Difficulty</label>
+      <div class="toggle-group">
+        <input type="radio" id="diff_easy" name="difficulty" value="easy" required>
+        <label for="diff_easy" class="toggle-option">Easy</label>
+
+        <input type="radio" id="diff_medium" name="difficulty" value="medium">
+        <label for="diff_medium" class="toggle-option">Medium</label>
+
+        <input type="radio" id="diff_hard" name="difficulty" value="hard">
+        <label for="diff_hard" class="toggle-option">Hard</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Bike Friendly</label>
+      <div class="toggle-group">
+        <input type="radio" id="bike_yes" name="bike_friendly" value="true">
+        <label for="bike_yes" class="toggle-option">Yes</label>
+
+        <input type="radio" id="bike_no" name="bike_friendly" value="false" checked>
+        <label for="bike_no" class="toggle-option">No</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Dog Friendly</label>
+      <div class="toggle-group">
+        <input type="radio" id="dog_yes" name="dog_friendly" value="true">
+        <label for="dog_yes" class="toggle-option">Yes</label>
+
+        <input type="radio" id="dog_no" name="dog_friendly" value="false" checked>
+        <label for="dog_no" class="toggle-option">No</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="trail_description">Description (Optional)</label>
+      <textarea id="trail_description" name="description"
+        placeholder="Describe the trail..."></textarea>
+    </div>
+
+    <button type="submit" class="submit-button">Submit</button>
+  </form>
+
+  <div id="new-trail-result"></div>
+
+</div>
+
+{% endblock %}
