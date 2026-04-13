@@ -6,6 +6,7 @@
     <p>Difficulty: {% if trail.difficulty == 'easy' %} Easy {% elif trail.difficulty == 'medium' %} Medium {% else %} Hard {% endif %}</p>
     <p>Surface: {{trail.surface}}</p>
     <p>Distance: {{trail.distance}} Miles</p>
+    <p><span>Rating:</span> {% if avg_ratings[trail.trail_id] %} {{avg_ratings[trail.trail_id]}} / 5 {% else %} No reviews yet {% endif %}</p>
     <p>Dog-Friendly: {% if trail.dog_friendly %} Yes {% else %} No {% endif %}</p>
     <p>Bike-Accessible: {% if trail.bike_friendly %} Yes {% else %} No {% endif %}</p>
     {% if user.role == 'admin' %}

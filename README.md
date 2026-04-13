@@ -44,3 +44,17 @@ This project was built to demonstrate full-stack engineering skills, such as:
   1. Clone the repo
   2. Create a .env file in the root directory and add in it:
     SECRET_KEY=add_any_secret_key_here
+  3. Run with Docker:
+    - First time running this: docker compose up --build
+    - Afterwards can just run: docker compose up
+  4. Open a browser and go to: http://localhost:8000
+
+## Video showing how the app works
+  ![Demo](/videos_and_images/Trailies_Demo.mov)
+
+## Screenshots showing admin view
+  - Delete and add trail buttons:
+    ![](/videos_and_images/Delete_Add_Trail_Buttons.png)
+  - Add trail page:
+    ![](/videos_and_images/Add_Trail_Page1.png)
+    ![](/videos_and_images/Add_Trail_Page2.png)

@@ -217,7 +217,14 @@ async def filter_trail_difficulty(request: Request, session: Session = Depends(g
         trails_difficulty = session.exec(
             select(Trail).order_by(Trail.name)).all()
 
-    return templates.TemplateResponse(request=request, name='fragments/filtered_list.html', context={'trails': trails_difficulty, 'user': user})
+    all_reviews = session.exec(select(TrailReview)).all()
+    avg_ratings = {}
+    for trail in trails_difficulty:
+        trail_reviews = [r for r in all_reviews if r.trail_id == trail.trail_id]
+        avg_ratings[trail.trail_id] = round(sum(
+            r.rating for r in trail_reviews) / len(trail_reviews), 1) if trail_reviews else None
+
+    return templates.TemplateResponse(request=request, name='fragments/filtered_list.html', context={'trails': trails_difficulty, 'user': user, 'avg_ratings': avg_ratings})
 
 
 @app.get('/trails/{trail_id}', response_class=HTMLResponse, status_code=status.HTTP_200_OK)
