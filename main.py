@@ -115,7 +115,7 @@ async def login(session: Session = Depends(get_session), username: str = Form(..
         key='access_token',
         value=access_token,
         httponly=True,
-        secure=False,  # Switch to true in production
+        secure=True,  # Switch to true in production
         samesite='lax'
     )
 
@@ -220,7 +220,8 @@ async def filter_trail_difficulty(request: Request, session: Session = Depends(g
     all_reviews = session.exec(select(TrailReview)).all()
     avg_ratings = {}
     for trail in trails_difficulty:
-        trail_reviews = [r for r in all_reviews if r.trail_id == trail.trail_id]
+        trail_reviews = [
+            r for r in all_reviews if r.trail_id == trail.trail_id]
         avg_ratings[trail.trail_id] = round(sum(
             r.rating for r in trail_reviews) / len(trail_reviews), 1) if trail_reviews else None
 
