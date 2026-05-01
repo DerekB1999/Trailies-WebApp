@@ -1,4 +1,4 @@
-from sqlmodel import Session, SQLModel
+from sqlmodel import Session, SQLModel, select
 
 from database import engine
 from models import Trail
@@ -9,6 +9,10 @@ def seed():
     SQLModel.metadata.create_all(engine)
 
     with Session(engine) as session:
+        if session.exec(select(Trail)).first():
+            print("Database already seeded, skipping.")
+            return
+
         trails = [
             Trail(
                 name="Mount Holyoke Range Loop",
